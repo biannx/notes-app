@@ -14,7 +14,7 @@ Dependencies:
 - react-mde
 - react-split
 - showdown
-
+- nanoid
 
 This is a project done on scrimba react course by bob ziroll
 

@@ -13,10 +13,10 @@ export default function Sidebar(props) {
                     onClick={() => props.setCurrentNoteId(note.id)}
                 >
                     <h4 className="text-snippet">{summary}</h4>
+                    <button type="button" onClick={(Event) => props.deleteNote(Event, note.id)}><i className="fa-solid fa-trash"></i></button>
                 </div>
             </div>
         )
-
     })
 
     return (

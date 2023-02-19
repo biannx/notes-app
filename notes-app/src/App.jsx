@@ -2,12 +2,10 @@ import './App.css'
 import React from "react"
 import Sidebar from "./components/Sidebar"
 import Editor from "./components/Editor"
-import { data } from "./data"
 import Split from "react-split"
 import { nanoid } from "nanoid"
 
 export default function App() {
-
   const [notes, setNotes] = React.useState(
     JSON.parse(localStorage.getItem("notes")) || []
   )
@@ -23,7 +21,8 @@ export default function App() {
     // Store the updated notes array in local storage as a JSON string.
     localStorage.setItem("notes", JSON.stringify(notes))
   }, [notes])
-  localStorage.clear();
+
+  // localStorage.clear();
   function createNewNote() {
     const newNote = {
       id: nanoid(),
@@ -46,6 +45,11 @@ export default function App() {
     });
   }
 
+  function deleteNote(Event, noteId) {
+    Event.stopPropagation()
+    setNotes(oldNotes => oldNotes.filter(note => note.id !== noteId))
+  }
+
   function findCurrentNote() {
     return notes.find(note => {
       return note.id === currentNoteId
@@ -58,7 +62,7 @@ export default function App() {
         notes.length > 0
           ?
           <Split
-            sizes={[30, 70]}
+            sizes={[25, 75]}
             direction="horizontal"
             className="split"
           >
@@ -67,6 +71,7 @@ export default function App() {
               currentNote={findCurrentNote()}
               setCurrentNoteId={setCurrentNoteId}
               newNote={createNewNote}
+              deleteNote={deleteNote}
             />
             {
               currentNoteId &&
